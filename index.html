@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Good boy</title>
+  <title>Looping Audio Speed-Up</title>
   <style>
     body {
       margin: 0;
@@ -16,8 +16,22 @@
   <audio id="sound" src="gopgopgop.mp3" preload="auto"></audio>
 
   <script>
+    const audio = document.getElementById('sound');
+    let speed = 1.0;
+    let started = false;
+
     document.body.addEventListener('click', () => {
-      document.getElementById('sound').play();
+      if (started) return; // Prevent multiple starts
+      started = true;
+      audio.playbackRate = speed;
+      audio.play();
+    });
+
+    audio.addEventListener('ended', () => {
+      speed *= 1.1;
+      audio.currentTime = 0;
+      audio.playbackRate = speed;
+      audio.play();
     });
   </script>
 </body>
