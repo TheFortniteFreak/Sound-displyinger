@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Raped porn</title>
+  <title>GOOD BOY</title>
 </head>
 <body>
   <h1>GET TROLLED</h1>
-  <audio autoplay loop>
+
+  <audio id="audio">
     <source src="sound.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const speedDisplay = document.getElementById('speed');
+
+    audio.playbackRate = 1.0;
+
+    function playSound() {
+      audio.play().then(() => {
+        console.log("Playback started");
+      }).catch(err => {
+        console.error("Playback failed:", err);
+      });
+
+      audio.onended = () => {
+        if (audio.playbackRate < 4.0) {
+          audio.playbackRate += 0.1;
+        }
+        speedDisplay.textContent = `Current speed: ${audio.playbackRate.toFixed(1)}x`;
+        audio.currentTime = 0;
+        audio.play();
+      };
+
+      // Remove the listener so it only runs once
+      document.body.removeEventListener('click', playSound);
+    }
+
+    // Wait for user interaction
+    document.body.addEventListener('click', playSound);
+  </script>
 </body>
 </html>
